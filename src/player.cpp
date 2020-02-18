@@ -21,6 +21,11 @@ Player::Player(const std::string filepath) {
             _song_list.push_back(line);
         }
         infile.close();
+    } else if (boost::filesystem::is_directory(filepath)) {
+        for (boost::filesystem::directory_iterator itr(filepath);
+             itr != boost::filesystem::directory_iterator(); itr++) {
+            _song_list.push_back(itr->path().c_str());
+        }
     } else {
         _song_list.push_back(filepath);
     }
@@ -35,7 +40,7 @@ void Player::load(const std::string filepath) {
         _sound->release();
     }
     _system->createSound(filepath.c_str(), FMOD_DEFAULT, 0, &_sound);
-    _current_song = filepath;
+    _current_song = boost::filesystem::path(filepath).filename().c_str();
     _sound->getLength(&_song_length, FMOD_TIMEUNIT_MS);
 }
 

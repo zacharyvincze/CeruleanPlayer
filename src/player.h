@@ -9,8 +9,6 @@ class Player {
     Player(const std::string filepath);
     ~Player();
 
-    inline std::string getCurrentSong() { return _current_song; }
-
     // Player functions
     void play();
     void resume();
@@ -31,6 +29,7 @@ class Player {
 
     unsigned int getCurrentPosition();
     unsigned int getSongLength() { return _song_length; }
+    inline std::string getCurrentSong() { return _current_song; }
 
    private:
     FMOD::System *_system;
