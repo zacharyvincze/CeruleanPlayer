@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <chrono>
+#include <iostream>
 #include <thread>
 #include "player.h"
 #include "window.h"
@@ -8,8 +9,11 @@ int main(int argc, char **argv) {
     Player player(argv[1]);
     Window window(player);
 
+    std::chrono::high_resolution_clock clock;
+
     bool running = true;
     while (running) {
+        auto begin = clock.now();
         int ch = window.getInput();
         switch (ch) {
             case 'q':
@@ -45,8 +49,11 @@ int main(int argc, char **argv) {
         window.draw();
         refresh();
 
-        // Improved CPU usage
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        auto end = clock.now();
+        auto time_elapsed =
+            std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+        std::this_thread::sleep_for(std::chrono::milliseconds(30) -
+                                    time_elapsed);
     }
     endwin();
     return 0;
