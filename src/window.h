@@ -1,5 +1,6 @@
 #pragma once
 #include <ncurses.h>
+
 #include "player.h"
 
 class Window {
@@ -11,4 +12,7 @@ class Window {
     Window(Player& player);
     void draw();
     int getInput();
+    void setPlayerVersion(unsigned int major, unsigned int minor);
+
+    int version_minor, version_major;
 };

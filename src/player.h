@@ -1,6 +1,6 @@
 #pragma once
 
-#include <fmod.hpp>
+#include <fmod/fmod.hpp>
 #include <string>
 #include <vector>
 

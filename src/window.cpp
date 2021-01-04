@@ -1,5 +1,7 @@
 #include "window.h"
+
 #include <ncurses.h>
+
 #include <string>
 
 Window::Window(Player& player) : _player(player) {
@@ -21,11 +23,17 @@ Window::Window(Player& player) : _player(player) {
     init_pair(3, COLOR_BLACK, COLOR_WHITE);
 }
 
+void Window::setPlayerVersion(unsigned int major, unsigned int minor) {
+    version_major = major;
+    version_minor = minor;
+}
+
 void Window::draw() {
     werase(_win);
     box(_win, 0, 0);
     wattron(_win, COLOR_PAIR(1));
-    mvwprintw(_win, 0, 1, "CeruleanPlayer v0.1");
+    mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i", version_major,
+              version_minor);
     wattroff(_win, COLOR_PAIR(1));
     mvwprintw(_win, 2, 2, "Now Playing:");
     wattron(_win, COLOR_PAIR(2));

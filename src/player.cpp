@@ -1,4 +1,5 @@
 #include "player.h"
+
 #include <boost/filesystem.hpp>
 #include <fstream>
 #include <iostream>
@@ -39,7 +40,7 @@ void Player::load(const std::string filepath) {
     if (_sound != nullptr) {
         _sound->release();
     }
-    _system->createSound(filepath.c_str(), FMOD_DEFAULT, 0, &_sound);
+    _system->createStream(filepath.c_str(), FMOD_DEFAULT, 0, &_sound);
     _current_song = boost::filesystem::path(filepath).filename().c_str();
     _sound->getLength(&_song_length, FMOD_TIMEUNIT_MS);
 }
