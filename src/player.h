@@ -19,7 +19,7 @@ class Player {
     bool isPlaying();
     void nextSong();
     void prevSong();
-    void adjustPitch(float delta);
+    void adjustPitch(int pitch_increment);
 
     double getPitch() { return _pitch; }
 
@@ -40,6 +40,7 @@ class Player {
     // Song attributes
     bool _paused = false;
     double _pitch = 1.0f;
+    int _pitch_increment = 0;
 
     std::string _current_song;
     unsigned int _song_length, _current_ms;

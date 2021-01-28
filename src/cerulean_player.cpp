@@ -3,7 +3,6 @@
 CeruleanPlayer::CeruleanPlayer(Player& player, Window& window)
     : player(player), window(window) {
     running = true;
-    window.setPlayerVersion(VERSION_MAJOR, VERSION_MINOR);
 }
 
 int CeruleanPlayer::run() {
@@ -34,10 +33,10 @@ int CeruleanPlayer::run() {
                 player.movePosition(-(player.getSongLength() / 50));
                 break;
             case 's':
-                player.adjustPitch(-0.05f);
+                player.adjustPitch(-1);
                 break;
             case 'w':
-                player.adjustPitch(0.05f);
+                player.adjustPitch(1);
                 break;
             case 'a':
                 player.movePosition(-1000);

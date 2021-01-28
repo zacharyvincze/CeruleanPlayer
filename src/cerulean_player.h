@@ -14,9 +14,6 @@ class CeruleanPlayer {
     int run();
 
    private:
-    const unsigned int VERSION_MAJOR = 1;
-    const unsigned int VERSION_MINOR = 0;
-
     Player& player;
     Window& window;
 

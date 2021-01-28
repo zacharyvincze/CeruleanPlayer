@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "meta_definitions.h"
+
 Window::Window(Player& player) : _player(player) {
     initscr();
     cbreak();
@@ -23,17 +25,13 @@ Window::Window(Player& player) : _player(player) {
     init_pair(3, COLOR_BLACK, COLOR_WHITE);
 }
 
-void Window::setPlayerVersion(unsigned int major, unsigned int minor) {
-    version_major = major;
-    version_minor = minor;
-}
-
 void Window::draw() {
     werase(_win);
     box(_win, 0, 0);
     wattron(_win, COLOR_PAIR(1));
-    mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i", version_major,
-              version_minor);
+    mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i.%i (FMOD v%i)",
+              CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR,
+              CERULEAN_PATCH_NUMBER, _player.getFmodVersion());
     wattroff(_win, COLOR_PAIR(1));
     mvwprintw(_win, 2, 2, "Now Playing:");
     wattron(_win, COLOR_PAIR(2));

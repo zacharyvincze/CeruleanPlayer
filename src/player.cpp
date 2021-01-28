@@ -93,10 +93,9 @@ unsigned int Player::getCurrentPosition() {
     return _current_ms;
 }
 
-void Player::adjustPitch(float delta) {
-    _pitch += delta;
-
-    if (_pitch <= 0.0) _pitch = 0 + abs(delta);
+void Player::adjustPitch(int pitch_increment) {
+    _pitch_increment += pitch_increment;
+    _pitch = (1.0f + (0.05f * _pitch_increment));
     _channel->setPitch(_pitch);
 }
 
