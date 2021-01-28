@@ -1,5 +1,8 @@
 # Cerulean Player
-CLI music player using FMOD and ncurses
+CLI music player using FMOD and ncurses. This is more of a personal tool, but feel free to use it. :)
+
+![Cerulean Player Screenshot](screenshots/screenshot1.png)
+
 ## Usage
     cerulean-player <directory/song/playlist>
 
@@ -16,4 +19,4 @@ CLI music player using FMOD and ncurses
 - `Q`: Quits the player
 
 ## Installation
-    mkdir build && cd build && cmake .. && make
+    mkdir build && cd build && cmake .. && sudo make install
