@@ -44,6 +44,10 @@ void Window::draw() {
         if (pitch > 1.0f) modifier = "+";
         mvwprintw(_win, 6, 25, "Pitch: %s%.2f", modifier.c_str(), pitch - 1.0f);
     }
+    double volume = _player.getVolume();
+    if (volume != 1) {
+        mvwprintw(_win, 5, 25, "Vol: %.2f", volume);
+    }
 
     // Progress bar
     unsigned int current_position = _player.getCurrentPosition();

@@ -17,6 +17,8 @@ CLI music player using FMOD and ncurses. This is more of a personal tool, but fe
 - `,`: Quickly seeks backwards
 - `.`: Quickly seeks forwards
 - `Q`: Quits the player
+- `-`: Lowers volume
+- `=`: Increases volume
 
 ## Installation
     mkdir build && cd build && cmake .. && sudo make install

@@ -44,6 +44,12 @@ int CeruleanPlayer::run() {
             case 'd':
                 player.movePosition(1000);
                 break;
+            case '-':
+                player.adjustVolume(-1);
+                break;
+            case '=':
+                player.adjustVolume(1);
+                break;
         }
         player.update();
 

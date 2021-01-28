@@ -20,8 +20,10 @@ class Player {
     void nextSong();
     void prevSong();
     void adjustPitch(int pitch_increment);
+    void adjustVolume(int volume_increment);
 
     double getPitch() { return _pitch; }
+    double getVolume() { return _volume; }
 
     void update();
 
@@ -41,6 +43,8 @@ class Player {
     bool _paused = false;
     double _pitch = 1.0f;
     int _pitch_increment = 0;
+    int _volume_increment = 0;
+    double _volume = 1.0f;
 
     std::string _current_song;
     unsigned int _song_length, _current_ms;
