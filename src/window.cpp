@@ -38,15 +38,13 @@ void Window::draw() {
     mvwprintw(_win, 3, 2, "%s", _player.getCurrentSong().c_str());
     wattroff(_win, COLOR_PAIR(2));
 
-    float pitch = _player.getPitch();
-    if (pitch != 1) {
-        std::string modifier;
-        if (pitch > 1.0f) modifier = "+";
-        mvwprintw(_win, 6, 25, "Pitch: %s%.2f", modifier.c_str(), pitch - 1.0f);
+    float speed = _player.getSpeed();
+    if (speed != 1) {
+        mvwprintw(_win, 6, 25, "Speed: %.0f%%", speed * 100);
     }
     double volume = _player.getVolume();
     if (volume != 1) {
-        mvwprintw(_win, 5, 25, "Vol: %.2f", volume);
+        mvwprintw(_win, 5, 25, "Vol: %.0f%%", volume * 100);
     }
 
     // Progress bar

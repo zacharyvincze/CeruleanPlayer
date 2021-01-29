@@ -33,10 +33,10 @@ int CeruleanPlayer::run() {
                 player.movePosition(-(player.getSongLength() / 50));
                 break;
             case 's':
-                player.adjustPitch(-1);
+                player.adjustSpeed(-1);
                 break;
             case 'w':
-                player.adjustPitch(1);
+                player.adjustSpeed(1);
                 break;
             case 'a':
                 player.movePosition(-1000);

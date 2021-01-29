@@ -19,10 +19,10 @@ class Player {
     bool isPlaying();
     void nextSong();
     void prevSong();
-    void adjustPitch(int pitch_increment);
+    void adjustSpeed(int speed_increment);
     void adjustVolume(int volume_increment);
 
-    double getPitch() { return _pitch; }
+    double getSpeed() { return _speed; }
     double getVolume() { return _volume; }
 
     void update();
@@ -41,8 +41,8 @@ class Player {
 
     // Song attributes
     bool _paused = false;
-    double _pitch = 1.0f;
-    int _pitch_increment = 0;
+    double _speed = 1.0f;
+    int _speed_increment = 0;
     int _volume_increment = 0;
     double _volume = 1.0f;
 

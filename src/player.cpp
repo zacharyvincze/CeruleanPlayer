@@ -47,7 +47,7 @@ void Player::load(const std::string filepath) {
 void Player::play() {
     _sound->setMode(FMOD_LOOP_OFF);
     _system->playSound(_sound, 0, false, &_channel);
-    _channel->setPitch(_pitch);
+    _channel->setPitch(_speed);
     _channel->setVolume(_volume);
 }
 
@@ -93,10 +93,10 @@ unsigned int Player::getCurrentPosition() {
     return _current_ms;
 }
 
-void Player::adjustPitch(int pitch_increment) {
-    _pitch_increment += pitch_increment;
-    _pitch = (1.0f + (0.05f * _pitch_increment));
-    _channel->setPitch(_pitch);
+void Player::adjustSpeed(int speed_increment) {
+    _speed_increment += speed_increment;
+    _speed = (1.0f + (0.05f * _speed_increment));
+    _channel->setPitch(_speed);
 }
 
 void Player::adjustVolume(int volume_increment) {
