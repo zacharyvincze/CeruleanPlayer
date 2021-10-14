@@ -4,9 +4,14 @@
 #include <string>
 #include <vector>
 
+struct PlayerOptions {
+    bool shuffle = false;
+    std::string filepath = "";
+};
+
 class Player {
    public:
-    Player(const std::string filepath);
+    Player(PlayerOptions options);
     ~Player();
 
     // Player functions

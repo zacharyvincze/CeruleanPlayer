@@ -1,10 +1,12 @@
 #include "player.h"
 
+#include <algorithm>
 #include <boost/filesystem.hpp>
 #include <fstream>
 #include <iostream>
+#include <random>
 
-Player::Player(const std::string filepath) {
+Player::Player(PlayerOptions options) {
     // Initialize FMOD
     FMOD::System_Create(&_system);
     _system->getVersion(&_fmod_version);
@@ -13,6 +15,7 @@ Player::Player(const std::string filepath) {
     _system->init(32, FMOD_INIT_NORMAL, 0);
 
     _current_song_num = -1;
+    std::string filepath = options.filepath;
 
     // Check if playlist or not, handle appropriately
     if (boost::filesystem::extension(filepath) == ".playlist") {
@@ -30,6 +33,14 @@ Player::Player(const std::string filepath) {
     } else {
         _song_list.push_back(filepath);
     }
+
+    // Shuffle the song list if the option is chosen
+    if (options.shuffle) {
+        std::random_device rd;
+        std::default_random_engine rng(rd());
+        std::shuffle(_song_list.begin(), _song_list.end(), rng);
+    }
+
     nextSong();
 }
 

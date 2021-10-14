@@ -20,5 +20,8 @@ CLI music player using FMOD and ncurses. This is more of a personal tool, but fe
 - `-`: Lowers volume
 - `=`: Increases volume
 
+## Command Line Options
+- Shuffle playlist: `-s or --shuffle`
+
 ## Installation
     mkdir build && cd build && cmake .. && sudo make install
