@@ -3,8 +3,24 @@ CLI music player using FMOD and ncurses. This is more of a personal tool, but fe
 
 ![Cerulean Player Screenshot](screenshots/screenshot1.png)
 
+## Installation
+
+### Install the FMOD Core API Dependency
+To compile from source, the FMOD Core API (Responsible for audio playback) will have to be installed on your system.
+- The FMOD Core API can be downloaded [here](https://www.fmod.com/download#fmodstudiosuite)
+
+- Extract and copy the files located in the `api/core` directories to their respective folders `lib` and `include`.
+
+### Build using CMake
+
+```shell
+mkdir build && cd build && cmake .. && sudo make install
+```
+
 ## Usage
-    cerulean-player <directory/song/playlist>
+```shell
+cerulean-player <directory/song/playlist>
+```
 
 - `Space/P`: Pauses the song
 - `Right arrow`: Switches to next song
@@ -22,6 +38,3 @@ CLI music player using FMOD and ncurses. This is more of a personal tool, but fe
 
 ## Command Line Options
 - Shuffle playlist: `-s or --shuffle`
-
-## Installation
-    mkdir build && cd build && cmake .. && sudo make install
