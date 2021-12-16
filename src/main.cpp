@@ -17,7 +17,6 @@ int main(int argc, char** argv) {
     int option = 0;
 
     PlayerOptions options;
-    printf("Something is wrong...\n");
 
     // Parse command line arguments
     while ((option = getopt(argc, argv, "s")) != -1) {
@@ -27,6 +26,7 @@ int main(int argc, char** argv) {
                 break;
             default:
                 printf("Usage: cerulean-player <playlist/song filepath>\n");
+		return -1;
         }
     }
 
