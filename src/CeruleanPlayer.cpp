@@ -56,6 +56,8 @@ int CeruleanPlayer::run() {
                 break;
         }
 
+        m_ExtensionManager.OnInput(ch);
+
         player.Update(m_ExtensionManager);
         window.Draw(m_ExtensionManager);
         refresh();

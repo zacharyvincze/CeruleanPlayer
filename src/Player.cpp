@@ -117,4 +117,5 @@ void Player::Update(ExtensionManager& extentionManager) {
     if (!isPlaying()) {
         nextSong();
     }
+    extentionManager.OnPlayerUpdate(*this);
 }

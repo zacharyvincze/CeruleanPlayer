@@ -10,6 +10,9 @@ class ExtensionManager {
     ~ExtensionManager();
 
     void RegisterExtension(Extension* extension);
+
+    void OnInput(char input);
+    void OnPlayerUpdate(Player& player);
     void OnWindowDraw(Window& window);
 
    private:
