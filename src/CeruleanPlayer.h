@@ -3,8 +3,9 @@
 #include <chrono>
 #include <thread>
 
-#include "player.h"
-#include "window.h"
+#include "Extensions/ExtensionManager.h"
+#include "Player.h"
+#include "Window.h"
 
 class CeruleanPlayer {
    public:
@@ -19,4 +20,6 @@ class CeruleanPlayer {
 
     bool running;
     std::chrono::high_resolution_clock clock;
+
+    ExtensionManager m_ExtensionManager;
 };

@@ -1,10 +1,10 @@
-#include "window.h"
+#include "Window.h"
 
 #include <ncurses.h>
 
 #include <string>
 
-#include "meta_definitions.h"
+#include "Metadata.h"
 
 Window::Window(Player& player) : _player(player) {
     initscr();
@@ -25,12 +25,11 @@ Window::Window(Player& player) : _player(player) {
     init_pair(3, COLOR_BLACK, COLOR_WHITE);
 }
 
-void Window::draw() {
+void Window::Draw(ExtensionManager& extentionManager) {
     werase(_win);
     box(_win, 0, 0);
     wattron(_win, COLOR_PAIR(1));
-    mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i.%i (FMOD v%i)",
-              CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR,
+    mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i.%i (FMOD v%i)", CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR,
               CERULEAN_PATCH_NUMBER, _player.getFmodVersion());
     wattroff(_win, COLOR_PAIR(1));
     mvwprintw(_win, 2, 2, "Now Playing:");
@@ -38,21 +37,11 @@ void Window::draw() {
     mvwprintw(_win, 3, 2, "%s", _player.getCurrentSong().c_str());
     wattroff(_win, COLOR_PAIR(2));
 
-    float speed = _player.getSpeed();
-    if (speed != 1) {
-        mvwprintw(_win, 6, 25, "Speed: %.0f%%", speed * 100);
-    }
-    double volume = _player.getVolume();
-    if (volume != 1) {
-        mvwprintw(_win, 5, 25, "Vol: %.0f%%", volume * 100);
-    }
-
     // Progress bar
     unsigned int current_position = _player.getCurrentPosition();
     unsigned int song_length = _player.getSongLength();
-    mvwprintw(_win, 6, 2, "%i:%02i/%i:%02i", (int)current_position / 1000 / 60,
-              (int)current_position / 1000 % 60, (int)song_length / 1000 / 60,
-              (int)song_length / 1000 % 60);
+    mvwprintw(_win, 6, 2, "%i:%02i/%i:%02i", (int)current_position / 1000 / 60, (int)current_position / 1000 % 60,
+              (int)song_length / 1000 / 60, (int)song_length / 1000 % 60);
 
     mvwprintw(_win, 7, 2, "[");
     wattron(_win, COLOR_PAIR(3));
@@ -61,9 +50,11 @@ void Window::draw() {
     }
     wattroff(_win, COLOR_PAIR(3));
     mvwprintw(_win, 7, 37, "]");
-    mvwprintw(_win, 9, 1, "Developed by Zachary Vincze");
+    mvwprintw(_win, 9, 1, "Developed by %s", CERULEAN_DEVELOPER_NAME.c_str());
+
+    extentionManager.OnWindowDraw(*this);
 
     wrefresh(_win);
 }
 
-int Window::getInput() { return wgetch(_win); }
+int Window::GetInput() { return wgetch(_win); }

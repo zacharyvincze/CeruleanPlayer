@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 project(cerulean-player)
 
-file(GLOB SRC
+file(GLOB_RECURSE SRC
     "src/*.cpp"
 )
 
