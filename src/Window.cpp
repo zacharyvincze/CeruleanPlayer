@@ -37,18 +37,6 @@ void Window::Draw(ExtensionManager& extentionManager) {
     mvwprintw(_win, 3, 2, "%s", _player.getCurrentSong().c_str());
     wattroff(_win, COLOR_PAIR(2));
 
-    // Display current playback speed if changed
-    float speed = _player.getSpeed();
-    if (speed != 1) {
-        mvwprintw(_win, 6, 25, "Speed: %.0f%%", speed * 100);
-    }
-
-    // Display current volume if changed
-    double volume = _player.getVolume();
-    if (volume != 1) {
-        mvwprintw(_win, 5, 25, "Vol: %.0f%%", volume * 100);
-    }
-
     // Progress bar
     unsigned int current_position = _player.getCurrentPosition();
     unsigned int song_length = _player.getSongLength();

@@ -1,10 +1,12 @@
 #include "CeruleanPlayer.h"
 
-#include "Extensions/TestExtension.h"
+#include "Extensions/Core/SpeedExtension.h"
+#include "Extensions/Core/VolumeExtension.h"
 
 CeruleanPlayer::CeruleanPlayer(Player& player, Window& window) : player(player), window(window), m_ExtensionManager() {
     // Load player extensions
-    m_ExtensionManager.RegisterExtension(new TestExtension());
+    m_ExtensionManager.RegisterExtension(new VolumeExtension());
+    m_ExtensionManager.RegisterExtension(new SpeedExtension());
 
     running = true;
 }
@@ -36,23 +38,11 @@ int CeruleanPlayer::run() {
             case ',':
                 player.movePosition(-(player.getSongLength() / 50));
                 break;
-            case 's':
-                player.adjustSpeed(-1);
-                break;
-            case 'w':
-                player.adjustSpeed(1);
-                break;
             case 'a':
                 player.movePosition(-1000);
                 break;
             case 'd':
                 player.movePosition(1000);
-                break;
-            case '-':
-                player.adjustVolume(-1);
-                break;
-            case '=':
-                player.adjustVolume(1);
                 break;
         }
 
