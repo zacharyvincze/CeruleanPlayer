@@ -1,12 +1,12 @@
 #include <ncurses.h>
+#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <iostream>
-#include <unistd.h>
-#include <stdio.h>
 
-#include "cerulean_player.h"
-#include "helpers.h"
+#include "CeruleanPlayer.h"
+#include "Helpers.h"
 
 int main(int argc, char** argv) {
     if (argc < 2) {
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
                 break;
             default:
                 printf("Usage: cerulean-player <playlist/song filepath>\n");
-		return -1;
+                return -1;
         }
     }
 

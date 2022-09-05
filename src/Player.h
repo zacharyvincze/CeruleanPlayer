@@ -9,6 +9,8 @@ struct PlayerOptions {
     std::string filepath = "";
 };
 
+struct ExtensionManager;
+
 class Player {
    public:
     Player(PlayerOptions options);
@@ -30,7 +32,7 @@ class Player {
     double getSpeed() { return _speed; }
     double getVolume() { return _volume; }
 
-    void update();
+    void Update(ExtensionManager &extensionManager);
 
     unsigned int getFmodVersion() { return _fmod_version; }
 

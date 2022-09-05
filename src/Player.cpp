@@ -1,4 +1,4 @@
-#include "player.h"
+#include "Player.h"
 
 #include <algorithm>
 #include <boost/filesystem.hpp>
@@ -6,12 +6,13 @@
 #include <iostream>
 #include <random>
 
+#include "Extensions/ExtensionManager.h"
+
 Player::Player(PlayerOptions options) {
     // Initialize FMOD
     FMOD::System_Create(&_system);
     _system->getVersion(&_fmod_version);
-    FMOD_Debug_Initialize(FMOD_DEBUG_LEVEL_NONE, FMOD_DEBUG_MODE_TTY, nullptr,
-                          nullptr);
+    FMOD_Debug_Initialize(FMOD_DEBUG_LEVEL_NONE, FMOD_DEBUG_MODE_TTY, nullptr, nullptr);
     _system->init(32, FMOD_INIT_NORMAL, 0);
 
     _current_song_num = -1;
@@ -26,8 +27,8 @@ Player::Player(PlayerOptions options) {
         }
         infile.close();
     } else if (boost::filesystem::is_directory(filepath)) {
-        for (boost::filesystem::directory_iterator itr(filepath);
-             itr != boost::filesystem::directory_iterator(); itr++) {
+        for (boost::filesystem::directory_iterator itr(filepath); itr != boost::filesystem::directory_iterator();
+             itr++) {
             _song_list.push_back(itr->path().c_str());
         }
     } else {
@@ -67,13 +68,9 @@ void Player::pause() {
     _channel->setPaused(_paused);
 }
 
-void Player::movePosition(int delta) {
-    _channel->setPosition(getCurrentPosition() + delta, FMOD_TIMEUNIT_MS);
-}
+void Player::movePosition(int delta) { _channel->setPosition(getCurrentPosition() + delta, FMOD_TIMEUNIT_MS); }
 
-void Player::setPosition(unsigned int millis) {
-    _channel->setPosition(millis, FMOD_TIMEUNIT_MS);
-}
+void Player::setPosition(unsigned int millis) { _channel->setPosition(millis, FMOD_TIMEUNIT_MS); }
 
 bool Player::isPlaying() {
     bool is_finished;
@@ -116,7 +113,7 @@ void Player::adjustVolume(int volume_increment) {
     _channel->setVolume(_volume);
 }
 
-void Player::update() {
+void Player::Update(ExtensionManager& extentionManager) {
     if (!isPlaying()) {
         nextSong();
     }

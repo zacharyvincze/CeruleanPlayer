@@ -1,7 +1,8 @@
 #pragma once
 #include <ncurses.h>
 
-#include "player.h"
+#include "Extensions/ExtensionManager.h"
+#include "Player.h"
 
 class Window {
     Player& _player;
@@ -10,6 +11,7 @@ class Window {
 
    public:
     Window(Player& player);
-    void draw();
-    int getInput();
+    void Draw(ExtensionManager& extentionManager);
+    int GetInput();
+    inline WINDOW* GetWindow() { return _win; }
 };
