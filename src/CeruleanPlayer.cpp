@@ -2,17 +2,21 @@
 
 #include "Extensions/Core/SpeedExtension.h"
 #include "Extensions/Core/VolumeExtension.h"
+#include "Extensions/TestExtension.h"
 
-CeruleanPlayer::CeruleanPlayer(Player& player, Window& window)
-    : player(player), window(window), m_ExtensionManager() {
+CeruleanPlayer::CeruleanPlayer(Player& player, Window& window, ExtensionManager& extensionManager)
+    : m_extensionManager(extensionManager), player(player), window(window) {
     // Load player extensions
-    m_ExtensionManager.RegisterExtension(new VolumeExtension());
-    m_ExtensionManager.RegisterExtension(new SpeedExtension());
+    m_extensionManager.RegisterExtension(new VolumeExtension());
+    m_extensionManager.RegisterExtension(new SpeedExtension());
+    m_extensionManager.RegisterExtension(new TestExtension());
 
     running = true;
 }
 
 int CeruleanPlayer::run() {
+    player.nextSong();
+
     while (running) {
         auto begin = clock.now();
         int ch = window.GetInput();
@@ -47,17 +51,15 @@ int CeruleanPlayer::run() {
                 break;
         }
 
-        m_ExtensionManager.OnInput(ch);
+        m_extensionManager.OnInput(ch);
 
-        player.Update(m_ExtensionManager);
-        window.Draw(m_ExtensionManager);
+        player.Update();
+        window.Draw();
         refresh();
 
         auto end = clock.now();
-        auto time_elapsed =
-            std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        std::this_thread::sleep_for(std::chrono::milliseconds(30) -
-                                    time_elapsed);
+        auto time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+        std::this_thread::sleep_for(std::chrono::milliseconds(30) - time_elapsed);
     }
     endwin();
     return 0;

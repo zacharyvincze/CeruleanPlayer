@@ -10,8 +10,7 @@
 #include "Metadata.h"
 
 void PrintVersionNumber() {
-    printf("CeruleanPlayer v%i.%i.%i\n", CERULEAN_VERSION_MAJOR,
-           CERULEAN_VERSION_MINOR, CERULEAN_PATCH_NUMBER);
+    printf("CeruleanPlayer v%i.%i.%i\n", CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR, CERULEAN_PATCH_NUMBER);
 }
 
 int main(int argc, char** argv) {
@@ -41,9 +40,10 @@ int main(int argc, char** argv) {
         options.filepath = argv[optind];
     }
 
-    Player player(options);
-    Window window(player);
-    CeruleanPlayer ceruleanPlayer(player, window);
+    ExtensionManager extensionManager;
+    Player player(options, extensionManager);
+    Window window(player, extensionManager);
+    CeruleanPlayer ceruleanPlayer(player, window, extensionManager);
 
     ceruleanPlayer.run();
 

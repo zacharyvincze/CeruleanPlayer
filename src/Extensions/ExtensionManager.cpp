@@ -30,3 +30,8 @@ void ExtensionManager::OnPlayerUpdate(Player& player) {
         extension->OnPlayerUpdate(player);
     }
 }
+void ExtensionManager::OnSongChange(const std::string songPath) {
+    for (Extension* extension : m_Extensions) {
+        extension->OnSongChange(songPath);
+    }
+}
