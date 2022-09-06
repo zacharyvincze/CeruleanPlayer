@@ -2,14 +2,12 @@
 
 #include "Extensions/Core/SpeedExtension.h"
 #include "Extensions/Core/VolumeExtension.h"
-#include "Extensions/TestExtension.h"
 
 CeruleanPlayer::CeruleanPlayer(Player& player, Window& window, ExtensionManager& extensionManager)
     : m_extensionManager(extensionManager), player(player), window(window) {
     // Load player extensions
     m_extensionManager.RegisterExtension(new VolumeExtension());
     m_extensionManager.RegisterExtension(new SpeedExtension());
-    m_extensionManager.RegisterExtension(new TestExtension());
 
     running = true;
 }
