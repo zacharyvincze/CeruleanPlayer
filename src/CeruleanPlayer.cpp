@@ -1,6 +1,8 @@
 #include "CeruleanPlayer.h"
 
+#include "Extensions/Core/MetadataExtension.h"
 #include "Extensions/Core/SpeedExtension.h"
+#include "Extensions/Core/TitleScrollerExtension.h"
 #include "Extensions/Core/VolumeExtension.h"
 
 CeruleanPlayer::CeruleanPlayer(Player& player, Window& window, ExtensionManager& extensionManager)
@@ -8,14 +10,19 @@ CeruleanPlayer::CeruleanPlayer(Player& player, Window& window, ExtensionManager&
     // Load player extensions
     m_extensionManager.RegisterExtension(new VolumeExtension());
     m_extensionManager.RegisterExtension(new SpeedExtension());
+    m_extensionManager.RegisterExtension(new MetadataExtension());
+    m_extensionManager.RegisterExtension(new TitleScrollerExtension(37, 500, 3000));
 
     running = true;
 }
 
 int CeruleanPlayer::run() {
+    auto playerStartTime = clock.now();
     player.nextSong();
 
     while (running) {
+        m_extensionManager.UpdateElapsedTime(
+            std::chrono::duration_cast<std::chrono::milliseconds>(clock.now() - playerStartTime).count());
         auto begin = clock.now();
         int ch = window.GetInput();
         switch (ch) {

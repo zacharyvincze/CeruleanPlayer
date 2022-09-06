@@ -93,6 +93,7 @@ void Player::prevSong() {
     }
     load(_song_list[_current_song_num]);
     play();
+    m_extensionManager.OnSongChange(_song_list[_current_song_num]);
 }
 
 unsigned int Player::getCurrentPosition() {

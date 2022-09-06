@@ -17,4 +17,9 @@ class Extension {
     virtual void OnPlayerUpdate(Player& player) {}
     virtual void OnWindowDraw(Window& window) {}
     virtual void OnSongChange(const std::string songPath) {}
+
+    inline void SetElapsedTime(long elapsedTime) { m_elapsedTime = elapsedTime; }
+
+   protected:
+    long m_elapsedTime;
 };
