@@ -20,10 +20,11 @@ Window::Window(Player& player, ExtensionManager& extensionManager)
     keypad(_win, true);
 
     // Initialize color pairs
-    // start_color();
-    init_pair(1, COLOR_CYAN, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
+    start_color();
+    use_default_colors();
+    init_pair(1, COLOR_CYAN, -1);
+    init_pair(2, COLOR_GREEN, -1);
+    init_pair(3, COLOR_WHITE, COLOR_WHITE);
 }
 
 void Window::Draw() {
