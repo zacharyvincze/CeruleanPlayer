@@ -8,7 +8,7 @@
 
 #include "Extensions/ExtensionManager.h"
 
-Player::Player(PlayerOptions options) {
+Player::Player(PlayerOptions options, ExtensionManager& extensionManager) : m_extensionManager(extensionManager) {
     // Initialize FMOD
     FMOD::System_Create(&_system);
     _system->getVersion(&_fmod_version);
@@ -41,8 +41,6 @@ Player::Player(PlayerOptions options) {
         std::default_random_engine rng(rd());
         std::shuffle(_song_list.begin(), _song_list.end(), rng);
     }
-
-    nextSong();
 }
 
 Player::~Player() { _sound->release(); }
@@ -85,6 +83,7 @@ void Player::nextSong() {
     }
     load(_song_list[_current_song_num]);
     play();
+    m_extensionManager.OnSongChange(_song_list[_current_song_num]);
 }
 
 void Player::prevSong() {
@@ -94,6 +93,7 @@ void Player::prevSong() {
     }
     load(_song_list[_current_song_num]);
     play();
+    m_extensionManager.OnSongChange(_song_list[_current_song_num]);
 }
 
 unsigned int Player::getCurrentPosition() {
@@ -113,9 +113,9 @@ void Player::adjustVolume(int volume_increment) {
     _channel->setVolume(_volume);
 }
 
-void Player::Update(ExtensionManager& extentionManager) {
+void Player::Update() {
     if (!isPlaying()) {
         nextSong();
     }
-    extentionManager.OnPlayerUpdate(*this);
+    m_extensionManager.OnPlayerUpdate(*this);
 }

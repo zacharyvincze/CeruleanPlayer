@@ -1,18 +1,28 @@
 #include "CeruleanPlayer.h"
 
+#include "Extensions/Core/MetadataExtension.h"
 #include "Extensions/Core/SpeedExtension.h"
+#include "Extensions/Core/TitleScrollerExtension.h"
 #include "Extensions/Core/VolumeExtension.h"
 
-CeruleanPlayer::CeruleanPlayer(Player& player, Window& window) : player(player), window(window), m_ExtensionManager() {
+CeruleanPlayer::CeruleanPlayer(Player& player, Window& window, ExtensionManager& extensionManager)
+    : m_extensionManager(extensionManager), player(player), window(window) {
     // Load player extensions
-    m_ExtensionManager.RegisterExtension(new VolumeExtension());
-    m_ExtensionManager.RegisterExtension(new SpeedExtension());
+    m_extensionManager.RegisterExtension(new VolumeExtension());
+    m_extensionManager.RegisterExtension(new SpeedExtension());
+    m_extensionManager.RegisterExtension(new MetadataExtension());
+    m_extensionManager.RegisterExtension(new TitleScrollerExtension(37, 500, 3000));
 
     running = true;
 }
 
 int CeruleanPlayer::run() {
+    auto playerStartTime = clock.now();
+    player.nextSong();
+
     while (running) {
+        m_extensionManager.UpdateElapsedTime(
+            std::chrono::duration_cast<std::chrono::milliseconds>(clock.now() - playerStartTime).count());
         auto begin = clock.now();
         int ch = window.GetInput();
         switch (ch) {
@@ -46,10 +56,10 @@ int CeruleanPlayer::run() {
                 break;
         }
 
-        m_ExtensionManager.OnInput(ch);
+        m_extensionManager.OnInput(ch);
 
-        player.Update(m_ExtensionManager);
-        window.Draw(m_ExtensionManager);
+        player.Update();
+        window.Draw();
         refresh();
 
         auto end = clock.now();

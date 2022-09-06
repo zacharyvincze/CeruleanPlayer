@@ -13,7 +13,7 @@ struct ExtensionManager;
 
 class Player {
    public:
-    Player(PlayerOptions options);
+    Player(PlayerOptions options, ExtensionManager &extensionManager);
     ~Player();
 
     // Player functions
@@ -32,7 +32,7 @@ class Player {
     double getSpeed() { return _speed; }
     double getVolume() { return _volume; }
 
-    void Update(ExtensionManager &extensionManager);
+    void Update();
 
     unsigned int getFmodVersion() { return _fmod_version; }
 
@@ -58,4 +58,6 @@ class Player {
 
     std::vector<std::string> _song_list;
     int _current_song_num;
+
+    ExtensionManager &m_extensionManager;
 };

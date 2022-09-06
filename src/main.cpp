@@ -7,23 +7,28 @@
 
 #include "CeruleanPlayer.h"
 #include "Helpers.h"
+#include "Metadata.h"
+
+void PrintVersionNumber() {
+    printf("CeruleanPlayer v%i.%i.%i\n", CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR, CERULEAN_PATCH_NUMBER);
+}
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        std::cerr << "Usage: cerulean_player <playlist/song filepath>\n";
+        fprintf(stderr, "Usage: cerulean_player <playlist/song filepath>\n");
         return -1;
     }
 
-    int option = 0;
-
     PlayerOptions options;
-
-    // Parse command line arguments
-    while ((option = getopt(argc, argv, "s")) != -1) {
+    int option = 0;
+    while ((option = getopt(argc, argv, "sv")) != -1) {
         switch (option) {
             case 's':
                 options.shuffle = true;
                 break;
+            case 'v':
+                PrintVersionNumber();
+                return 0;
             default:
                 printf("Usage: cerulean-player <playlist/song filepath>\n");
                 return -1;
@@ -35,9 +40,10 @@ int main(int argc, char** argv) {
         options.filepath = argv[optind];
     }
 
-    Player player(options);
-    Window window(player);
-    CeruleanPlayer ceruleanPlayer(player, window);
+    ExtensionManager extensionManager;
+    Player player(options, extensionManager);
+    Window window(player, extensionManager);
+    CeruleanPlayer ceruleanPlayer(player, window, extensionManager);
 
     ceruleanPlayer.run();
 

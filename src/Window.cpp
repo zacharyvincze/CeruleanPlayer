@@ -6,7 +6,8 @@
 
 #include "Metadata.h"
 
-Window::Window(Player& player) : _player(player) {
+Window::Window(Player& player, ExtensionManager& extensionManager)
+    : _player(player), m_extensionManager(extensionManager) {
     initscr();
     cbreak();
     noecho();
@@ -19,22 +20,28 @@ Window::Window(Player& player) : _player(player) {
     keypad(_win, true);
 
     // Initialize color pairs
-    // start_color();
-    init_pair(1, COLOR_CYAN, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
+    start_color();
+    use_default_colors();
+    init_pair(1, COLOR_CYAN, -1);
+    init_pair(2, COLOR_GREEN, -1);
+    init_pair(3, COLOR_WHITE, COLOR_WHITE);
 }
 
-void Window::Draw(ExtensionManager& extentionManager) {
+void Window::Draw() {
     werase(_win);
     box(_win, 0, 0);
+
+    m_songTitle = _player.getCurrentSong();
+
+    m_extensionManager.OnWindowDraw(*this);
+
     wattron(_win, COLOR_PAIR(1));
     mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i.%i (FMOD v%i)", CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR,
               CERULEAN_PATCH_NUMBER, _player.getFmodVersion());
     wattroff(_win, COLOR_PAIR(1));
     mvwprintw(_win, 2, 2, "Now Playing:");
     wattron(_win, COLOR_PAIR(2));
-    mvwprintw(_win, 3, 2, "%s", _player.getCurrentSong().c_str());
+    mvwprintw(_win, 3, 2, "%s", m_songTitle.c_str());
     wattroff(_win, COLOR_PAIR(2));
 
     // Progress bar
@@ -51,8 +58,6 @@ void Window::Draw(ExtensionManager& extentionManager) {
     wattroff(_win, COLOR_PAIR(3));
     mvwprintw(_win, 7, 37, "]");
     mvwprintw(_win, 9, 1, "Developed by %s", CERULEAN_DEVELOPER_NAME.c_str());
-
-    extentionManager.OnWindowDraw(*this);
 
     wrefresh(_win);
 }

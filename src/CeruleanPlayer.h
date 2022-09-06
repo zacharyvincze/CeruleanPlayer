@@ -9,7 +9,7 @@
 
 class CeruleanPlayer {
    public:
-    CeruleanPlayer(Player& player, Window& window);
+    CeruleanPlayer(Player& player, Window& window, ExtensionManager& extensionManager);
     ~CeruleanPlayer();
 
     int run();
@@ -21,5 +21,5 @@ class CeruleanPlayer {
     bool running;
     std::chrono::high_resolution_clock clock;
 
-    ExtensionManager m_ExtensionManager;
+    ExtensionManager& m_extensionManager;
 };
