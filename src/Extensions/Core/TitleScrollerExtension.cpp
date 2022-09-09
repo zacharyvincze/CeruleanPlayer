@@ -14,7 +14,7 @@ void TitleScrollerExtension::OnWindowDraw(Window& window) {
 
     while (m_elapsedTime - m_lastUpdate >= m_currentScrollingDelay) {
         m_currentStringIndex++;
-        m_lastUpdate = m_elapsedTime;
+        m_lastUpdate += m_currentScrollingDelay;
         m_currentScrollingDelay = m_scrollingDelay;
 
         if (m_currentStringIndex >= currentTitle.length()) {
