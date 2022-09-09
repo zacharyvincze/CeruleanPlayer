@@ -9,6 +9,8 @@ class TitleScrollerExtension : public Extension {
     virtual void OnWindowDraw(Window& window) override;
 
    private:
+    void Reset();
+
     int m_currentStringIndex = 0;
     long m_lastUpdate = 0;
 
@@ -17,6 +19,8 @@ class TitleScrollerExtension : public Extension {
     int m_scrollingResetDelay;
 
     int m_currentScrollingDelay;
+
+    bool m_scrollForward = true;
 
     std::string m_updatedSongName;
 };
