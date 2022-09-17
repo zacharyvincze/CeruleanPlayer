@@ -13,21 +13,29 @@ void TitleScrollerExtension::OnWindowDraw(Window& window) {
     if (currentTitle.length() <= m_titleLength) return;
 
     while (m_elapsedTime - m_lastUpdate >= m_currentScrollingDelay) {
-        m_currentStringIndex++;
-        m_lastUpdate = m_elapsedTime;
+        m_currentStringIndex = m_scrollForward ? m_currentStringIndex + 1 : m_currentStringIndex - 1;
+        m_lastUpdate += m_currentScrollingDelay;
         m_currentScrollingDelay = m_scrollingDelay;
 
-        if (m_currentStringIndex >= currentTitle.length()) {
-            m_currentStringIndex = 0;
+        if (m_currentStringIndex >= currentTitle.length() - m_titleLength) {
+            m_scrollForward = false;
             m_currentScrollingDelay = m_scrollingResetDelay;
+        }
+
+        if (m_currentStringIndex == 0) {
+            m_currentScrollingDelay = m_scrollingResetDelay;
+            m_scrollForward = true;
         }
     }
 
     window.SetSongTitle(currentTitle.substr(m_currentStringIndex, m_titleLength));
 }
 
-void TitleScrollerExtension::OnSongChange(const std::string songPath) {
+void TitleScrollerExtension::OnSongChange(const std::string songPath) { Reset(); }
+
+void TitleScrollerExtension::Reset() {
     m_currentStringIndex = 0;
     m_lastUpdate = m_elapsedTime;
     m_currentScrollingDelay = m_scrollingResetDelay;
+    m_scrollForward = true;
 }
