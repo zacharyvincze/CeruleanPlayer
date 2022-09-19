@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "player.h"
 
 #include <algorithm>
 #include <boost/filesystem.hpp>
@@ -6,7 +6,7 @@
 #include <iostream>
 #include <random>
 
-#include "Extensions/ExtensionManager.h"
+#include "extensions/extension_manager.h"
 
 Player::Player(PlayerOptions options, ExtensionManager& extensionManager) : m_extensionManager(extensionManager) {
     // Initialize FMOD
@@ -66,56 +66,56 @@ void Player::pause() {
     _channel->setPaused(_paused);
 }
 
-void Player::movePosition(int delta) { _channel->setPosition(getCurrentPosition() + delta, FMOD_TIMEUNIT_MS); }
+void Player::move_position(int delta) { _channel->setPosition(get_current_position() + delta, FMOD_TIMEUNIT_MS); }
 
-void Player::setPosition(unsigned int millis) { _channel->setPosition(millis, FMOD_TIMEUNIT_MS); }
+void Player::set_position(unsigned int millis) { _channel->setPosition(millis, FMOD_TIMEUNIT_MS); }
 
-bool Player::isPlaying() {
+bool Player::is_playing() {
     bool is_finished;
     _channel->isPlaying(&is_finished);
     return is_finished;
 }
 
-void Player::nextSong() {
+void Player::next_song() {
     _current_song_num++;
     if (_current_song_num > _song_list.size() - 1) {
         _current_song_num = 0;
     }
     load(_song_list[_current_song_num]);
     play();
-    m_extensionManager.OnSongChange(_song_list[_current_song_num]);
+    m_extensionManager.on_song_change(_song_list[_current_song_num]);
 }
 
-void Player::prevSong() {
+void Player::prev_song() {
     _current_song_num--;
     if (_current_song_num < 0) {
         _current_song_num = _song_list.size() - 1;
     }
     load(_song_list[_current_song_num]);
     play();
-    m_extensionManager.OnSongChange(_song_list[_current_song_num]);
+    m_extensionManager.on_song_change(_song_list[_current_song_num]);
 }
 
-unsigned int Player::getCurrentPosition() {
+unsigned int Player::get_current_position() {
     _channel->getPosition(&_current_ms, FMOD_TIMEUNIT_MS);
     return _current_ms;
 }
 
-void Player::adjustSpeed(int speed_increment) {
+void Player::adjust_speed(int speed_increment) {
     _speed_increment += speed_increment;
     _speed = (1.0f + (0.05f * _speed_increment));
     _channel->setPitch(_speed);
 }
 
-void Player::adjustVolume(int volume_increment) {
+void Player::adjust_volume(int volume_increment) {
     _volume_increment += volume_increment;
     _volume = 1.0f + (0.025f * _volume_increment);
     _channel->setVolume(_volume);
 }
 
-void Player::Update() {
-    if (!isPlaying()) {
-        nextSong();
+void Player::update() {
+    if (!is_playing()) {
+        next_song();
     }
-    m_extensionManager.OnPlayerUpdate(*this);
+    m_extensionManager.on_player_update(*this);
 }

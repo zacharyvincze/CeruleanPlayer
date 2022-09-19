@@ -13,12 +13,12 @@ class Extension {
     Extension() {}
     ~Extension() {}
 
-    virtual void OnInput(char input) {}
-    virtual void OnPlayerUpdate(Player& player) {}
-    virtual void OnWindowDraw(Window& window) {}
-    virtual void OnSongChange(const std::string songPath) {}
+    virtual void on_input(char input) {}
+    virtual void on_player_update(Player& player) {}
+    virtual void on_window_draw(Window& window) {}
+    virtual void on_song_change(const std::string songPath) {}
 
-    inline void SetElapsedTime(long elapsedTime) { m_elapsedTime = elapsedTime; }
+    inline void set_elapsed_time(long elapsedTime) { m_elapsedTime = elapsedTime; }
 
    protected:
     long m_elapsedTime;

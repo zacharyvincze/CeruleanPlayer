@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "window.h"
 
 #include <ncurses.h>
 
@@ -27,16 +27,16 @@ Window::Window(Player& player, ExtensionManager& extensionManager)
     init_pair(3, COLOR_WHITE, COLOR_WHITE);
 }
 
-void Window::Draw() {
+void Window::draw() {
     werase(_win);
     box(_win, 0, 0);
 
-    m_songTitle = _player.getCurrentSong();
+    m_songTitle = _player.get_current_song();
 
-    m_extensionManager.OnWindowDraw(*this);
+    m_extensionManager.on_window_draw(*this);
 
     wattron(_win, COLOR_PAIR(1));
-    mvwprintw(_win, 0, 1, "CeruleanPlayer v" CERULEAN_PLAYER_VERSION " (FMOD v%i)", _player.getFmodVersion());
+    mvwprintw(_win, 0, 1, "CeruleanPlayer v" CERULEAN_PLAYER_VERSION " (FMOD v%i)", _player.get_fmod_version());
     wattroff(_win, COLOR_PAIR(1));
     mvwprintw(_win, 2, 2, "Now Playing:");
     wattron(_win, COLOR_PAIR(2));
@@ -44,8 +44,8 @@ void Window::Draw() {
     wattroff(_win, COLOR_PAIR(2));
 
     // Progress bar
-    unsigned int current_position = _player.getCurrentPosition();
-    unsigned int song_length = _player.getSongLength();
+    unsigned int current_position = _player.get_current_position();
+    unsigned int song_length = _player.get_song_length();
     mvwprintw(_win, 6, 2, "%i:%02i/%i:%02i", (int)current_position / 1000 / 60, (int)current_position / 1000 % 60,
               (int)song_length / 1000 / 60, (int)song_length / 1000 % 60);
 
@@ -61,4 +61,4 @@ void Window::Draw() {
     wrefresh(_win);
 }
 
-int Window::GetInput() { return wgetch(_win); }
+int Window::get_input() { return wgetch(_win); }

@@ -5,11 +5,11 @@
 
 #include <iostream>
 
-#include "CeruleanPlayer.h"
-#include "Helpers.h"
+#include "cerulean_player.h"
+#include "helpers.h"
 #include "metadata.h"
 
-void PrintVersionNumber() { printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION "\n"); }
+void print_version_number() { printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION "\n"); }
 
 int main(int argc, char** argv) {
     if (argc < 2) {
@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
                 options.shuffle = true;
                 break;
             case 'v':
-                PrintVersionNumber();
+                print_version_number();
                 return 0;
             default:
                 printf("Usage: cerulean-player <playlist/song filepath>\n");

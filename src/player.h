@@ -21,24 +21,24 @@ class Player {
     void resume();
     void pause();
     void load(const std::string filepath);
-    void movePosition(int delta);
-    void setPosition(unsigned int millis);
-    bool isPlaying();
-    void nextSong();
-    void prevSong();
-    void adjustSpeed(int speed_increment);
-    void adjustVolume(int volume_increment);
+    void move_position(int delta);
+    void set_position(unsigned int millis);
+    bool is_playing();
+    void next_song();
+    void prev_song();
+    void adjust_speed(int speed_increment);
+    void adjust_volume(int volume_increment);
 
-    double getSpeed() { return _speed; }
-    double getVolume() { return _volume; }
+    double get_speed() { return _speed; }
+    double get_volume() { return _volume; }
 
-    void Update();
+    void update();
 
-    unsigned int getFmodVersion() { return _fmod_version; }
+    unsigned int get_fmod_version() { return _fmod_version; }
 
-    unsigned int getCurrentPosition();
-    unsigned int getSongLength() { return _song_length; }
-    inline std::string getCurrentSong() { return _current_song; }
+    unsigned int get_current_position();
+    unsigned int get_song_length() { return _song_length; }
+    inline std::string get_current_song() { return _current_song; }
 
    private:
     FMOD::System *_system;

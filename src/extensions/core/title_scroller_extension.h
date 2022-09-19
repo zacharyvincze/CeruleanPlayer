@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Extensions/Extension.h"
+#include "extensions/extension.h"
 
 class TitleScrollerExtension : public Extension {
    public:
     TitleScrollerExtension(int titleLength, int scrollingDelay, int scrollingResetDelay);
-    virtual void OnSongChange(const std::string songPath) override;
-    virtual void OnWindowDraw(Window& window) override;
+    virtual void on_song_change(const std::string songPath) override;
+    virtual void on_window_draw(Window& window) override;
 
    private:
-    void Reset();
+    void reset();
 
     int m_currentStringIndex = 0;
     long m_lastUpdate = 0;

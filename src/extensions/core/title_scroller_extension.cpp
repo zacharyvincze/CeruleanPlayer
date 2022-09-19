@@ -1,14 +1,14 @@
-#include "TitleScrollerExtension.h"
+#include "title_scroller_extension.h"
 
-#include "Window.h"
+#include "window.h"
 
 TitleScrollerExtension::TitleScrollerExtension(int titleLength, int scrollingDelay, int scrollingResetDelay)
     : m_titleLength(titleLength), m_scrollingDelay(scrollingDelay), m_scrollingResetDelay(scrollingResetDelay) {
     m_currentScrollingDelay = m_scrollingResetDelay;
 }
 
-void TitleScrollerExtension::OnWindowDraw(Window& window) {
-    std::string currentTitle = window.GetSongTitle();
+void TitleScrollerExtension::on_window_draw(Window& window) {
+    std::string currentTitle = window.get_song_title();
     // Do not scroll if the entire title fits
     if (currentTitle.length() <= m_titleLength) return;
 
@@ -28,12 +28,12 @@ void TitleScrollerExtension::OnWindowDraw(Window& window) {
         }
     }
 
-    window.SetSongTitle(currentTitle.substr(m_currentStringIndex, m_titleLength));
+    window.set_song_title(currentTitle.substr(m_currentStringIndex, m_titleLength));
 }
 
-void TitleScrollerExtension::OnSongChange(const std::string songPath) { Reset(); }
+void TitleScrollerExtension::on_song_change(const std::string songPath) { reset(); }
 
-void TitleScrollerExtension::Reset() {
+void TitleScrollerExtension::reset() {
     m_currentStringIndex = 0;
     m_lastUpdate = m_elapsedTime;
     m_currentScrollingDelay = m_scrollingResetDelay;

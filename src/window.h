@@ -1,8 +1,8 @@
 #pragma once
 #include <ncurses.h>
 
-#include "Extensions/ExtensionManager.h"
-#include "Player.h"
+#include "extensions/extension_manager.h"
+#include "player.h"
 
 class Window {
     Player& _player;
@@ -14,11 +14,11 @@ class Window {
 
    public:
     Window(Player& player, ExtensionManager& extensionManager);
-    void Draw();
-    int GetInput();
+    void draw();
+    int get_input();
 
-    void SetSongTitle(const std::string& songTitle) { m_songTitle = songTitle; }
-    std::string GetSongTitle() { return m_songTitle; }
+    void set_song_title(const std::string& songTitle) { m_songTitle = songTitle; }
+    std::string get_song_title() { return m_songTitle; }
 
-    inline WINDOW* GetWindow() { return _win; }
+    inline WINDOW* get_window() { return _win; }
 };
