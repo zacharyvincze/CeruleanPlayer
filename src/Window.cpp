@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include "Metadata.h"
+#include "metadata.h"
 
 Window::Window(Player& player, ExtensionManager& extensionManager)
     : _player(player), m_extensionManager(extensionManager) {
@@ -36,8 +36,7 @@ void Window::Draw() {
     m_extensionManager.OnWindowDraw(*this);
 
     wattron(_win, COLOR_PAIR(1));
-    mvwprintw(_win, 0, 1, "CeruleanPlayer v%i.%i.%i (FMOD v%i)", CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR,
-              CERULEAN_PATCH_NUMBER, _player.getFmodVersion());
+    mvwprintw(_win, 0, 1, "CeruleanPlayer v" CERULEAN_PLAYER_VERSION " (FMOD v%i)", _player.getFmodVersion());
     wattroff(_win, COLOR_PAIR(1));
     mvwprintw(_win, 2, 2, "Now Playing:");
     wattron(_win, COLOR_PAIR(2));
@@ -57,7 +56,7 @@ void Window::Draw() {
     }
     wattroff(_win, COLOR_PAIR(3));
     mvwprintw(_win, 7, 37, "]");
-    mvwprintw(_win, 9, 1, "Developed by %s", CERULEAN_DEVELOPER_NAME.c_str());
+    mvwprintw(_win, 9, 1, "Developed by " DEVELOPER_NAME);
 
     wrefresh(_win);
 }

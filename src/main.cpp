@@ -7,11 +7,9 @@
 
 #include "CeruleanPlayer.h"
 #include "Helpers.h"
-#include "Metadata.h"
+#include "metadata.h"
 
-void PrintVersionNumber() {
-    printf("CeruleanPlayer v%i.%i.%i\n", CERULEAN_VERSION_MAJOR, CERULEAN_VERSION_MINOR, CERULEAN_PATCH_NUMBER);
-}
+void PrintVersionNumber() { printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION); }
 
 int main(int argc, char** argv) {
     if (argc < 2) {

@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-commit".
+
+METADATA_PATH=`git rev-parse --show-toplevel`"/src/metadata.h"
+VERSION_TOKEN="CERULEAN_PLAYER_VERSION"
+
+# Grab current version from metadata path
+OG_VERSION_STRING=$(grep $VERSION_TOKEN $METADATA_PATH | grep -Eo '[0-9]+[.][0-9]+[.][0-9]+')
+VERSION_MAJOR=$(echo $OG_VERSION_STRING | awk -F. '{print $1}')
+VERSION_MINOR=$(echo $OG_VERSION_STRING | awk -F. '{print $2}')
+VERSION_PATCH=$(echo $OG_VERSION_STRING | awk -F. '{print $3}')
+
+# Increment to get the new patch number
+NEW_VERSION_PATCH=$(($VERSION_PATCH+1))
+
+echo "[AUTO VERSION INCREMENT]: "$VERSION_MAJOR"."$VERSION_MINOR"."$VERSION_PATCH" => "$VERSION_MAJOR"."$VERSION_MINOR"."$NEW_VERSION_PATCH
+
+# Replace with new version properly
+VRS_STR=$VERSION_MAJOR'.'$VERSION_MINOR'.'$NEW_VERSION_PATCH
+sed -i 's/[0-9]\+[.][0-9]\+[.][0-9]\+/'$VRS_STR'/g' $METADATA_PATH
+git add $METADATA_PATH
+
+exit 0
