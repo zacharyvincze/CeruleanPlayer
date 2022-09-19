@@ -3,9 +3,9 @@
 #include <chrono>
 #include <thread>
 
-#include "Extensions/ExtensionManager.h"
-#include "Player.h"
-#include "Window.h"
+#include "extensions/extension.h"
+#include "player.h"
+#include "window.h"
 
 class CeruleanPlayer {
    public:
