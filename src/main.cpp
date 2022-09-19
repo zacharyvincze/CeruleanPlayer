@@ -9,7 +9,7 @@
 #include "Helpers.h"
 #include "metadata.h"
 
-void PrintVersionNumber() { printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION); }
+void PrintVersionNumber() { printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION "\n"); }
 
 int main(int argc, char** argv) {
     if (argc < 2) {
