@@ -28,6 +28,7 @@ class Player {
     void prev_song();
     void adjust_speed(int speed_increment);
     void adjust_volume(int volume_increment);
+    inline bool is_paused() { return _paused; }
 
     double get_speed() { return _speed; }
     double get_volume() { return _volume; }

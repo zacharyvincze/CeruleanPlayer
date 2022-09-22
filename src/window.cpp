@@ -43,6 +43,9 @@ void Window::draw() {
     mvwprintw(_win, 3, 2, "%s", m_songTitle.c_str());
     wattroff(_win, COLOR_PAIR(2));
 
+    // Info section (for any general type of information)
+    mvwprintw(_win, 5, 2, "%s", m_infoSection.c_str());
+
     // Progress bar
     unsigned int current_position = _player.get_current_position();
     unsigned int song_length = _player.get_song_length();

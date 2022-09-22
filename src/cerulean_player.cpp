@@ -1,6 +1,7 @@
 #include "cerulean_player.h"
 
 #include "extensions/core/metadata_extension.h"
+#include "extensions/core/paused_extension.h"
 #include "extensions/core/speed_extension.h"
 #include "extensions/core/title_scroller_extension.h"
 #include "extensions/core/volume_extension.h"
@@ -12,6 +13,7 @@ CeruleanPlayer::CeruleanPlayer(Player& player, Window& window, ExtensionManager&
     m_extensionManager.register_extension(new SpeedExtension());
     m_extensionManager.register_extension(new MetadataExtension());
     m_extensionManager.register_extension(new TitleScrollerExtension(37, 500, 3000));
+    m_extensionManager.register_extension(new PausedExtension());
 
     running = true;
 }

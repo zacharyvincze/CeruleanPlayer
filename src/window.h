@@ -10,6 +10,7 @@ class Window {
     WINDOW* _win;
 
     std::string m_songTitle;
+    std::string m_infoSection;
     ExtensionManager& m_extensionManager;
 
    public:
@@ -17,8 +18,10 @@ class Window {
     void draw();
     int get_input();
 
-    void set_song_title(const std::string& songTitle) { m_songTitle = songTitle; }
-    std::string get_song_title() { return m_songTitle; }
+    inline void set_song_title(const std::string& songTitle) { m_songTitle = songTitle; }
+    inline std::string get_song_title() { return m_songTitle; }
+    inline void set_info_section(const std::string& infoSection) { m_infoSection = infoSection; }
+    inline std::string get_info_section() { return m_infoSection; }
 
     inline WINDOW* get_window() { return _win; }
 };
