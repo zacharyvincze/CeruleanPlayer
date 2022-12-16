@@ -6,8 +6,9 @@
 
 #include "metadata.h"
 
-Window::Window(Player& player, ExtensionManager& extensionManager)
-    : _player(player), m_extensionManager(extensionManager) {
+Window::Window(Player &player, ExtensionManager &extensionManager)
+    : _player(player), m_extensionManager(extensionManager)
+{
     initscr();
     cbreak();
     noecho();
@@ -27,7 +28,8 @@ Window::Window(Player& player, ExtensionManager& extensionManager)
     init_pair(3, COLOR_WHITE, COLOR_WHITE);
 }
 
-void Window::draw() {
+void Window::draw()
+{
     werase(_win);
     box(_win, 0, 0);
 
@@ -43,6 +45,9 @@ void Window::draw() {
     mvwprintw(_win, 3, 2, "%s", m_songTitle.c_str());
     wattroff(_win, COLOR_PAIR(2));
 
+    // Info section (for any general type of information)
+    mvwprintw(_win, 5, 2, "%s", m_infoSection.c_str());
+
     // Progress bar
     unsigned int current_position = _player.get_current_position();
     unsigned int song_length = _player.get_song_length();
@@ -51,7 +56,8 @@ void Window::draw() {
 
     mvwprintw(_win, 7, 2, "[");
     wattron(_win, COLOR_PAIR(3));
-    for (int i = 0; i < (current_position / (float)song_length) * 34; i++) {
+    for (int i = 0; i < (current_position / (float)song_length) * 34; i++)
+    {
         mvwaddch(_win, 7, 3 + i, ACS_CKBOARD);
     }
     wattroff(_win, COLOR_PAIR(3));
@@ -61,4 +67,7 @@ void Window::draw() {
     wrefresh(_win);
 }
 
-int Window::get_input() { return wgetch(_win); }
+int Window::get_input()
+{
+    return wgetch(_win);
+}

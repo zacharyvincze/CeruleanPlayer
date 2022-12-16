@@ -5,21 +5,29 @@
 
 #include "window.h"
 
-void MetadataExtension::on_song_change(const std::string songPath) {
+void MetadataExtension::on_song_change(const std::string songPath)
+{
     TagLib::FileRef f(songPath.c_str());
     TagLib::String songName = f.tag()->title();
     TagLib::String songArtist = f.tag()->artist();
 
     // Set the song name to the path if there are no id3 tags
-    if (songName.isEmpty()) {
+    if (songName.isEmpty())
+    {
         m_songName = songPath;
-    } else {
+    }
+    else
+    {
         m_songName = songName.to8Bit();
     }
 
-    if (!songArtist.isEmpty()) {
+    if (!songArtist.isEmpty())
+    {
         m_songName += " - " + songArtist.to8Bit();
     }
 }
 
-void MetadataExtension::on_window_draw(Window& window) { window.set_song_title(m_songName); }
+void MetadataExtension::on_window_draw(Window &window)
+{
+    window.set_song_title(m_songName);
+}

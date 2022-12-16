@@ -9,32 +9,40 @@
 #include "helpers.h"
 #include "metadata.h"
 
-void print_version_number() { printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION "\n"); }
+void print_version_number()
+{
+    printf("CeruleanPlayer v" CERULEAN_PLAYER_VERSION "\n");
+}
 
-int main(int argc, char** argv) {
-    if (argc < 2) {
+int main(int argc, char **argv)
+{
+    if (argc < 2)
+    {
         fprintf(stderr, "Usage: cerulean_player <playlist/song filepath>\n");
         return -1;
     }
 
     PlayerOptions options;
     int option = 0;
-    while ((option = getopt(argc, argv, "sv")) != -1) {
-        switch (option) {
-            case 's':
-                options.shuffle = true;
-                break;
-            case 'v':
-                print_version_number();
-                return 0;
-            default:
-                printf("Usage: cerulean-player <playlist/song filepath>\n");
-                return -1;
+    while ((option = getopt(argc, argv, "sv")) != -1)
+    {
+        switch (option)
+        {
+        case 's':
+            options.shuffle = true;
+            break;
+        case 'v':
+            print_version_number();
+            return 0;
+        default:
+            printf("Usage: cerulean-player <playlist/song filepath>\n");
+            return -1;
         }
     }
 
     // Obtain path to music
-    for (; optind < argc; optind++) {
+    for (; optind < argc; optind++)
+    {
         options.filepath = argv[optind];
     }
 

@@ -4,15 +4,17 @@
 #include <string>
 #include <vector>
 
-struct PlayerOptions {
+struct PlayerOptions
+{
     bool shuffle = false;
     std::string filepath = "";
 };
 
 struct ExtensionManager;
 
-class Player {
-   public:
+class Player
+{
+  public:
     Player(PlayerOptions options, ExtensionManager &extensionManager);
     ~Player();
 
@@ -28,19 +30,38 @@ class Player {
     void prev_song();
     void adjust_speed(int speed_increment);
     void adjust_volume(int volume_increment);
+    inline bool is_paused()
+    {
+        return _paused;
+    }
 
-    double get_speed() { return _speed; }
-    double get_volume() { return _volume; }
+    double get_speed()
+    {
+        return _speed;
+    }
+    double get_volume()
+    {
+        return _volume;
+    }
 
     void update();
 
-    unsigned int get_fmod_version() { return _fmod_version; }
+    unsigned int get_fmod_version()
+    {
+        return _fmod_version;
+    }
 
     unsigned int get_current_position();
-    unsigned int get_song_length() { return _song_length; }
-    inline std::string get_current_song() { return _current_song; }
+    unsigned int get_song_length()
+    {
+        return _song_length;
+    }
+    inline std::string get_current_song()
+    {
+        return _current_song;
+    }
 
-   private:
+  private:
     FMOD::System *_system;
     FMOD::Sound *_sound;
     FMOD::Channel *_channel = 0;

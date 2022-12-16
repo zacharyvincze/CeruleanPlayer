@@ -2,13 +2,14 @@
 
 #include "extensions/extension.h"
 
-class TitleScrollerExtension : public Extension {
-   public:
+class TitleScrollerExtension : public Extension
+{
+  public:
     TitleScrollerExtension(int titleLength, int scrollingDelay, int scrollingResetDelay);
     virtual void on_song_change(const std::string songPath) override;
-    virtual void on_window_draw(Window& window) override;
+    virtual void on_window_draw(Window &window) override;
 
-   private:
+  private:
     void reset();
 
     int m_currentStringIndex = 0;
